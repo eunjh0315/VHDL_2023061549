@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project source="5.0.0" version="1.0">
+  <lib desc="#Wiring" name="0" />
+  <lib desc="#Gates" name="1" />
+  <lib desc="#Plexers" name="2" />
+  <lib desc="#Arithmetic" name="3" />
+  <lib desc="#Memory" name="4" />
+  <lib desc="#I/O" name="5" />
+  <lib desc="#Base" name="8" />
+  <main name="P4_Vote25" />
+  <options>
+    <a name="simlimit" val="1000" />
+  </options>
+  <mappings>
+    <tool lib="8" name="Poke Tool" map="Button2" />
+  </mappings>
+  <toolbar>
+    <tool lib="8" name="Poke Tool" />
+    <tool lib="8" name="Edit Tool" />
+    <tool lib="8" name="Wiring Tool" />
+    <tool lib="8" name="Text Tool" />
+  </toolbar>
+  <circuit name="P4_Vote25">
+    <a name="appearance" val="logisim_evolution" />
+    <comp lib="8" loc="(40,40)" name="Text">
+      <a name="text" val="4. 25-person voting machine" />
+      <a name="font" val="SansSerif plain 24" />
+      <a name="halign" val="left" />
+    </comp>
+    <comp lib="8" loc="(40,80)" name="Text">
+      <a name="text" val="INPUT: vt[24:0]                        OUTPUTS: count[4:0], result (pass/fail)" />
+      <a name="font" val="SansSerif plain 16" />
+      <a name="halign" val="left" />
+    </comp>
+    <comp lib="0" loc="(160,240)" name="Pin">
+      <a name="type" val="input" />
+      <a name="facing" val="east" />
+      <a name="width" val="25" />
+      <a name="label" val="vt" />
+      <a name="labelloc" val="north" />
+      <a name="labelfont" val="SansSerif bold 18" />
+      <a name="radix" val="2" />
+      <a name="appearance" val="classic" />
+      <a name="initial" val="0x1fff" />
+      <a name="behavior" val="simple" />
+    </comp>
+    <comp lib="3" loc="(380,240)" name="BitAdder">
+      <a name="width" val="25" />
+      <a name="inputs" val="1" />
+    </comp>
+    <wire from="(160,240)" to="(340,240)" />
+    <comp lib="8" loc="(290,180)" name="Text">
+      <a name="text" val="Count ones" />
+      <a name="font" val="SansSerif plain 18" />
+      <a name="halign" val="left" />
+    </comp>
+    <wire from="(380,240)" to="(460,240)" />
+    <wire from="(460,240)" to="(460,230)" />
+    <wire from="(460,230)" to="(560,230)" />
+    <comp lib="3" loc="(600,240)" name="Comparator">
+      <a name="width" val="5" />
+      <a name="mode" val="unsigned" />
+    </comp>
+    <comp lib="0" loc="(470,330)" name="Constant">
+      <a name="width" val="5" />
+      <a name="value" val="0xc" />
+    </comp>
+    <wire from="(470,330)" to="(520,330)" />
+    <wire from="(520,330)" to="(520,250)" />
+    <wire from="(520,250)" to="(560,250)" />
+    <comp lib="8" loc="(430,370)" name="Text">
+      <a name="text" val="Threshold = 12" />
+      <a name="font" val="SansSerif plain 16" />
+      <a name="halign" val="left" />
+    </comp>
+    <wire from="(460,240)" to="(460,460)" />
+    <wire from="(460,460)" to="(820,460)" />
+    <comp lib="0" loc="(820,460)" name="Pin">
+      <a name="type" val="output" />
+      <a name="facing" val="west" />
+      <a name="width" val="5" />
+      <a name="label" val="count" />
+      <a name="labelloc" val="north" />
+      <a name="labelfont" val="SansSerif bold 18" />
+      <a name="radix" val="10unsigned" />
+      <a name="appearance" val="classic" />
+      <a name="initial" val="0x0" />
+      <a name="behavior" val="simple" />
+    </comp>
+    <comp lib="0" loc="(820,230)" name="Pin">
+      <a name="type" val="output" />
+      <a name="facing" val="west" />
+      <a name="width" val="1" />
+      <a name="label" val="result" />
+      <a name="labelloc" val="north" />
+      <a name="labelfont" val="SansSerif bold 18" />
+      <a name="radix" val="2" />
+      <a name="appearance" val="classic" />
+      <a name="initial" val="0x0" />
+      <a name="behavior" val="simple" />
+    </comp>
+    <wire from="(600,230)" to="(740,230)" />
+    <wire from="(740,230)" to="(820,230)" />
+    <comp lib="5" loc="(910,330)" name="LED" />
+    <wire from="(740,230)" to="(740,330)" />
+    <wire from="(740,330)" to="(910,330)" />
+    <comp lib="8" loc="(680,180)" name="Text">
+      <a name="text" val="1 = passed; 0 = rejected" />
+      <a name="font" val="SansSerif plain 16" />
+      <a name="halign" val="left" />
+    </comp>
+    <comp lib="8" loc="(40,570)" name="Text">
+      <a name="text" val="result = 1 when count &gt; 12, i.e. at least 13 of 25 votes are 1." />
+      <a name="font" val="SansSerif plain 16" />
+      <a name="halign" val="left" />
+    </comp>
+    <comp lib="8" loc="(40,610)" name="Text">
+      <a name="text" val="Boundary checks: 12 ones -&gt; 0; 13 ones -&gt; 1; all zeros -&gt; 0; all ones -&gt; 1." />
+      <a name="font" val="SansSerif plain 16" />
+      <a name="halign" val="left" />
+    </comp>
+  </circuit>
+  </project>
