@@ -9,7 +9,7 @@ entity p2_mux8_1 is
     port (din : in std_logic_vector(7 downto 0);
           sel : in std_logic_vector(2 downto 0);
           data : out std_logic);
-end entity;
+end p2_mux8_1;
 architecture bhv of p2_mux8_1 is
 begin
     process(din, sel)

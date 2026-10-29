@@ -7,7 +7,7 @@
   <lib desc="#Memory" name="4" />
   <lib desc="#I/O" name="5" />
   <lib desc="#Base" name="8" />
-  <main name="P2_Mux8" />
+  <main name="main" />
   <options>
     <a name="simlimit" val="1000" />
   </options>
@@ -20,19 +20,48 @@
     <tool lib="8" name="Wiring Tool" />
     <tool lib="8" name="Text Tool" />
   </toolbar>
-  <circuit name="P2_Mux8">
+  <vhdl name="p2_mux8_1" appearance="logisim_evolution">-- VHDL_1 homework; adapted from the course examples:
+-- https://github.com/lizhuoh9/VHDL_code
+-- Active-high display bus: display(7 downto 0) = a b c d e f g dp.
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity p2_mux8_1 is
+    port (din : in std_logic_vector(7 downto 0);
+          sel : in std_logic_vector(2 downto 0);
+          data : out std_logic);
+end p2_mux8_1;
+architecture bhv of p2_mux8_1 is
+begin
+    process(din, sel)
+    begin
+        case sel is
+            when "000" =&gt; data &lt;= din(0);
+            when "001" =&gt; data &lt;= din(1);
+            when "010" =&gt; data &lt;= din(2);
+            when "011" =&gt; data &lt;= din(3);
+            when "100" =&gt; data &lt;= din(4);
+            when "101" =&gt; data &lt;= din(5);
+            when "110" =&gt; data &lt;= din(6);
+            when "111" =&gt; data &lt;= din(7);
+            when others =&gt; data &lt;= '0';
+        end case;
+    end process;
+end architecture;
+</vhdl>
+  <circuit name="main">
     <a name="appearance" val="logisim_evolution" />
-    <comp lib="8" loc="(40,40)" name="Text">
-      <a name="text" val="2. 8-to-1 multiplexer" />
+    <comp name="Text" loc="(60,50)" lib="8">
+      <a name="text" val="2. 8-to-1 Multiplexer" />
       <a name="font" val="SansSerif plain 24" />
       <a name="halign" val="left" />
     </comp>
-    <comp lib="8" loc="(40,80)" name="Text">
-      <a name="text" val="INPUTS: din[7:0], sel[2:0]                            OUTPUT: data (1 bit)" />
-      <a name="font" val="SansSerif plain 16" />
-      <a name="halign" val="left" />
+    <comp name="p2_mux8_1" loc="(720,260)">
+      <a name="facing" val="east" />
+      <a name="appearance" val="logisim_evolution" />
     </comp>
-    <comp lib="0" loc="(140,320)" name="Pin">
+    <comp name="Pin" loc="(250,180)" lib="0">
       <a name="type" val="input" />
       <a name="facing" val="east" />
       <a name="width" val="8" />
@@ -44,83 +73,10 @@
       <a name="initial" val="0xa5" />
       <a name="behavior" val="simple" />
     </comp>
-    <wire from="(140,320)" to="(240,320)" />
-    <comp lib="0" loc="(240,320)" name="Splitter">
-      <a name="facing" val="east" />
-      <a name="fanout" val="8" />
-      <a name="incoming" val="8" />
-      <a name="appear" val="center" />
-      <a name="spacing" val="3" />
-    </comp>
-    <comp lib="2" loc="(560,320)" name="Multiplexer">
-      <a name="select" val="3" />
-      <a name="width" val="1" />
-      <a name="enable" val="false" />
-      <a name="size" val="40" />
-    </comp>
-    <wire from="(260,200)" to="(460,200)" />
-    <wire from="(460,200)" to="(460,280)" />
-    <wire from="(460,280)" to="(520,280)" />
-    <comp lib="8" loc="(280,190)" name="Text">
-      <a name="text" val="din[0]" />
-      <a name="font" val="SansSerif plain 14" />
-      <a name="halign" val="left" />
-    </comp>
-    <wire from="(260,230)" to="(440,230)" />
-    <wire from="(440,230)" to="(440,290)" />
-    <wire from="(440,290)" to="(520,290)" />
-    <comp lib="8" loc="(280,220)" name="Text">
-      <a name="text" val="din[1]" />
-      <a name="font" val="SansSerif plain 14" />
-      <a name="halign" val="left" />
-    </comp>
-    <wire from="(260,260)" to="(420,260)" />
-    <wire from="(420,260)" to="(420,300)" />
-    <wire from="(420,300)" to="(520,300)" />
-    <comp lib="8" loc="(280,250)" name="Text">
-      <a name="text" val="din[2]" />
-      <a name="font" val="SansSerif plain 14" />
-      <a name="halign" val="left" />
-    </comp>
-    <wire from="(260,290)" to="(400,290)" />
-    <wire from="(400,290)" to="(400,310)" />
-    <wire from="(400,310)" to="(520,310)" />
-    <comp lib="8" loc="(280,280)" name="Text">
-      <a name="text" val="din[3]" />
-      <a name="font" val="SansSerif plain 14" />
-      <a name="halign" val="left" />
-    </comp>
-    <wire from="(260,320)" to="(520,320)" />
-    <comp lib="8" loc="(280,310)" name="Text">
-      <a name="text" val="din[4]" />
-      <a name="font" val="SansSerif plain 14" />
-      <a name="halign" val="left" />
-    </comp>
-    <wire from="(260,350)" to="(400,350)" />
-    <wire from="(400,350)" to="(400,330)" />
-    <wire from="(400,330)" to="(520,330)" />
-    <comp lib="8" loc="(280,340)" name="Text">
-      <a name="text" val="din[5]" />
-      <a name="font" val="SansSerif plain 14" />
-      <a name="halign" val="left" />
-    </comp>
-    <wire from="(260,380)" to="(420,380)" />
-    <wire from="(420,380)" to="(420,340)" />
-    <wire from="(420,340)" to="(520,340)" />
-    <comp lib="8" loc="(280,370)" name="Text">
-      <a name="text" val="din[6]" />
-      <a name="font" val="SansSerif plain 14" />
-      <a name="halign" val="left" />
-    </comp>
-    <wire from="(260,410)" to="(440,410)" />
-    <wire from="(440,410)" to="(440,350)" />
-    <wire from="(440,350)" to="(520,350)" />
-    <comp lib="8" loc="(280,400)" name="Text">
-      <a name="text" val="din[7]" />
-      <a name="font" val="SansSerif plain 14" />
-      <a name="halign" val="left" />
-    </comp>
-    <comp lib="0" loc="(430,520)" name="Pin">
+    <wire from="(250,180)" to="(400,180)" />
+    <wire from="(400,180)" to="(400,260)" />
+    <wire from="(400,260)" to="(500,260)" />
+    <comp name="Pin" loc="(250,420)" lib="0">
       <a name="type" val="input" />
       <a name="facing" val="east" />
       <a name="width" val="3" />
@@ -132,9 +88,10 @@
       <a name="initial" val="0x0" />
       <a name="behavior" val="simple" />
     </comp>
-    <wire from="(430,520)" to="(540,520)" />
-    <wire from="(540,520)" to="(540,360)" />
-    <comp lib="0" loc="(830,320)" name="Pin">
+    <wire from="(250,420)" to="(400,420)" />
+    <wire from="(400,420)" to="(400,280)" />
+    <wire from="(400,280)" to="(500,280)" />
+    <comp name="Pin" loc="(960,260)" lib="0">
       <a name="type" val="output" />
       <a name="facing" val="west" />
       <a name="width" val="1" />
@@ -146,11 +103,11 @@
       <a name="initial" val="0x0" />
       <a name="behavior" val="simple" />
     </comp>
-    <wire from="(560,320)" to="(830,320)" />
-    <comp lib="8" loc="(40,610)" name="Text">
-      <a name="text" val="sel=000 selects din[0]; sel=111 selects din[7]. All 2,048 input combinations tested." />
-      <a name="font" val="SansSerif plain 16" />
+    <wire from="(720,260)" to="(960,260)" />
+    <comp name="Text" loc="(80,540)" lib="8">
+      <a name="text" val="sel = 000..111 selects din(0)..din(7)." />
+      <a name="font" val="SansSerif plain 18" />
       <a name="halign" val="left" />
     </comp>
   </circuit>
-  </project>
+</project>
